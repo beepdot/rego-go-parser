@@ -47,41 +47,6 @@ func RoleCheck(roleCheck Checks, fp *os.File) {
 	}
 }
 
-// func OrgCheck(orgCheck Checks, roleCheck bool, fp *os.File) {
-// 	count := strings.Count(orgCheck.Body, "*")
-// 	var placeHolders []rune
-// 	fp.WriteString("  some j")
-// 	for i, v := 0, 'j'; i < count; i++ {
-// 		v++
-// 		placeHolders = append(placeHolders, v)
-// 	}
-// 	for _, v := range placeHolders {
-// 		fp.WriteString(string(", " + string(v)))
-// 	}
-// 	fp.WriteString("\n")
-// 	for _, v := range placeHolders {
-// 		orgCheck.Body = strings.Replace(orgCheck.Body, "*", string(v), 1)
-// 	}
-// 	switch orgCheck.Key {
-// 	case "body":
-// 		if orgCheck.Body != "" {
-// 			if roleCheck {
-// 				fp.WriteString("  token.payload.roles[i].scope[j].orgId == input.parsed_body." + orgCheck.Body + "\n")
-// 			} else {
-// 				fp.WriteString("  token.payload.roles[_].scope[j].orgId == input.parsed_body." + orgCheck.Body + "\n")
-// 			}
-// 		}
-// 	case "header":
-// 		if orgCheck.Header != "" {
-// 			if roleCheck {
-// 				fp.WriteString("  token.payload.roles[i].scope[j].orgId == http_request.header." + orgCheck.Header + "\n")
-// 			} else {
-// 				fp.WriteString("  token.payload.roles[_].scope[j].orgId == http_request.header." + orgCheck.Header + "\n")
-// 			}
-// 		}
-// 	}
-// }
-
 func OrgCheck(orgCheck Checks, roleCheck bool, fp *os.File) {
 	count := strings.Count(orgCheck.Body, "*")
 	var placeHolders []rune
@@ -139,15 +104,6 @@ func OrgCheck(orgCheck Checks, roleCheck bool, fp *os.File) {
 	}
 }
 
-// func OwnerCheck(ownerCheck Checks, fp *os.File) {
-// 	switch ownerCheck.Key {
-// 	case "body":
-// 		fp.WriteString("  sub[2] == input.parsed_body." + ownerCheck.Body + "\n")
-// 	case "header":
-// 		fp.WriteString("  sub[2] == http_request.header." + ownerCheck.Header + "\n")
-// 	}
-// }
-
 func OwnerCheck(ownerCheck Checks, fp *os.File) {
 	if strings.Contains(ownerCheck.Key, "&&") {
 		values := strings.Split(ownerCheck.Key, "&&")
@@ -200,81 +156,6 @@ func main() {
 	}
 	defer f.Close()
 
-	// Basic json
-	// for i := 0; i < len(apis.APIs); i++ {
-	// 	flag, roleCheck := true, false
-	// 	for j := 0; j < len(apis.APIs[i].Checks); j++ {
-	// 		for _, v := range apis.APIs[i].Checks {
-	// 			if strings.Contains(v.Key, "||") || strings.Contains(v.Key, "&&") {
-	// 				// flag = false
-	// 				// temporary comment out
-	// 				flag = true
-	// 				break
-	// 			}
-	// 		}
-	// 		for _, v := range apis.APIs[i].Checks {
-	// 			if v.CheckType == "roleCheck" {
-	// 				roleCheck = true
-	// 				break
-	// 			}
-	// 		}
-	// 		if flag {
-	// 			if j == 0 {
-	// 				f.WriteString(apis.APIs[i].Name)
-	// 				f.WriteString(" {\n")
-	// 			}
-	// 			switch apis.APIs[i].Checks[j].CheckType {
-	// 			case "roleCheck":
-	// 				RoleCheck(apis.APIs[i].Checks[j], f)
-	// 			case "orgCheck":
-	// 				OrgCheck(apis.APIs[i].Checks[j], roleCheck, f)
-	// 			case "ownerCheck":
-	// 				OwnerCheck(apis.APIs[i].Checks[j], f)
-	// 			}
-	// 		}
-	// 	}
-	// 	if flag {
-	// 		f.WriteString("}\n\n")
-	// 	}
-	// }
-
-	// && json
-	// for i := 0; i < len(apis.APIs); i++ {
-	// 	flag, roleCheck := false, false
-	// 	for j := 0; j < len(apis.APIs[i].Checks); j++ {
-	// 		for _, v := range apis.APIs[i].Checks {
-	// 			if strings.Contains(v.Key, "&&") && !strings.Contains(v.Key, "||") {
-	// 				flag = true
-	// 				break
-	// 			}
-	// 		}
-	// 		for _, v := range apis.APIs[i].Checks {
-	// 			if v.CheckType == "roleCheck" {
-	// 				roleCheck = true
-	// 				break
-	// 			}
-	// 		}
-	// 		if flag {
-	// 			if j == 0 {
-	// 				f.WriteString(apis.APIs[i].Name)
-	// 				f.WriteString(" {\n")
-	// 			}
-	// 			switch apis.APIs[i].Checks[j].CheckType {
-	// 			case "roleCheck":
-	// 				RoleCheck(apis.APIs[i].Checks[j], f)
-	// 			case "orgCheck":
-	// 				OrgCheck(apis.APIs[i].Checks[j], roleCheck, f)
-	// 			case "ownerCheck":
-	// 				OwnerCheck(apis.APIs[i].Checks[j], f)
-	// 			}
-	// 		}
-	// 	}
-	// 	if flag {
-	// 		f.WriteString("}\n\n")
-	// 	}
-	// }
-
-	// All 3 scenarios
 	var ownerCheck []string
 	var orgCheck []string
 	var orgAnd, ownerAnd = false, false
