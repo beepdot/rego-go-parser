@@ -197,8 +197,6 @@ func main() {
 		}
 	}
 
-	fmt.Println(orgAnd, ownerAnd)
-
 	for i := 0; i < len(apis.APIs); i++ {
 		for oc := 0; oc < len(ownerCheck); oc++ {
 			if !ownerAnd {
