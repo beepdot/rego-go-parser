@@ -12,13 +12,13 @@
         },
         {
           "checkType": "orgCheck",
-          "key": "body || header",
-          "body": "request.content.createdFor[*]",
+          "key": "body && header",
+          "body": "request[*].content[*].createdFor[*]",
           "header": "X-Channel-Id"
         },
         {
           "checkType": "ownerCheck",
-          "key": "header || body",
+          "key": "header && body",
           "body": "request.userId",
           "header": "X-User-Id"
         }
