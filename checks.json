@@ -1,0 +1,28 @@
+{
+  "apis": [
+    {
+      "name": "createContent",
+      "uris": "/content/v1/create",
+      "upstream_url": "http://knowledge-mw:5000/v1/content/create",
+      "checks": [
+        {
+          "checkType": "roleCheck",
+          "key": "token",
+          "token": "CONTENT_CREATOR, COURSE_CREATOR"
+        },
+        {
+          "checkType": "orgCheck",
+          "key": "body || header",
+          "body": "request.content.createdFor[*]",
+          "header": "X-Channel-Id"
+        },
+        {
+          "checkType": "ownerCheck",
+          "key": "header || body",
+          "body": "request.userId",
+          "header": "X-User-Id"
+        }
+      ]
+    }
+  ]
+}
