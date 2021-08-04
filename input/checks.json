@@ -9,18 +9,6 @@
           "checkType": "roleCheck",
           "key": "token",
           "token": "CONTENT_CREATOR, COURSE_CREATOR"
-        },
-        {
-          "checkType": "orgCheck",
-          "key": "body && header",
-          "body": "request[*].content[*].createdFor[*]",
-          "header": "X-Channel-Id"
-        },
-        {
-          "checkType": "ownerCheck",
-          "key": "header && body",
-          "body": "request.userId",
-          "header": "X-User-Id"
         }
       ]
     }

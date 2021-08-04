@@ -35,7 +35,7 @@ func RoleCheck(checks schema.Checks, f *os.File) {
 			}
 			f.WriteString(helpers.ApiRolesEnd)
 			f.WriteString(helpers.SomeI)
-			f.WriteString(helpers.ApiRolesCheck)
+			f.WriteString(helpers.RolesCheckWithOrgCheck)
 		}
 	}
 }
